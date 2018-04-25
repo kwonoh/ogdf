@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 project(OGDF-PROJECT CXX)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(module_dir "${PROJECT_SOURCE_DIR}/cmake")
 list(INSERT CMAKE_MODULE_PATH 0 "${module_dir}" )
 
