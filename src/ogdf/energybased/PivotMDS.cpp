@@ -29,6 +29,9 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
+
+#include <ctime>
+
 #include <ogdf/energybased/PivotMDS.h>
 
 
@@ -269,7 +272,8 @@ void PivotMDS::getPivotDistanceMatrix(
 	NodeArray<double> minDistances(G, std::numeric_limits<double>::infinity());
 	NodeArray<double> shortestPathSingleSource(G);
 	// the current pivot node
-	node pivNode = G.firstNode();
+	node pivNode = G.chooseNode();
+
 	for (int i = 0; i < numberOfPivots; i++) {
 		// get the shortest path from the currently processed pivot node to
 		// all other nodes in the graph
@@ -367,7 +371,7 @@ double PivotMDS::prod(const Array<double>& x, const Array<double>& y)
 
 void PivotMDS::randomize(Array<Array<double> >& matrix)
 {
-	srand(SEED);
+	srand(std::time(nullptr));
 	for (auto &elem : matrix) {
 		for (int j = 0; j < elem.size(); j++) {
 			elem[j] = ((double) rand()) / RAND_MAX;
