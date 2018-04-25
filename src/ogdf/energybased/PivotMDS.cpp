@@ -191,7 +191,8 @@ void PivotMDS::eigenValueDecomposition(
 	for (int i = 0; i < DIMENSION_COUNT; i++) {
 		eValues[i] = normalize(eVecs[i]);
 	}
-	while (r < EPSILON) {
+	unsigned int iter = 0;
+	while (r < EPSILON && iter < m_maxIterations) {
 		if (std::isnan(r) || isinf(r)) {
 			// Throw arithmetic exception (Shouldn't occur
 			// for DIMEMSION_COUNT = 2
@@ -238,6 +239,7 @@ void PivotMDS::eigenValueDecomposition(
 			}
 			Math::updateMin(r, tmp);
 		}
+		iter++;
 	}
 }
 

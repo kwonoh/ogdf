@@ -56,7 +56,7 @@ inline bool isinf(T value)
  */
 class OGDF_EXPORT PivotMDS : public LayoutModule {
 public:
-	PivotMDS() : m_numberOfPivots(250), m_edgeCosts(100), m_hasEdgeCostsAttribute(false) { }
+	PivotMDS() : m_numberOfPivots(250), m_edgeCosts(100), m_hasEdgeCostsAttribute(false), m_maxIterations(1E4) { }
 
 	virtual ~PivotMDS() { }
 
@@ -84,6 +84,14 @@ public:
 		return m_hasEdgeCostsAttribute;
 	}
 
+	unsigned int maxIterations() const {
+		return m_maxIterations;
+	}
+
+	void maxIterations(unsigned int n) {
+		m_maxIterations = n > 1E2 ? n : 1E2;
+	}
+
 private:
 
 	//! The dimension count determines the number of evecs that
@@ -109,6 +117,9 @@ private:
 	//! Tells whether the pivot mds is based on uniform edge costs or a
 	//! edge costs attribute
 	bool m_hasEdgeCostsAttribute;
+
+	//! The maximum number of iterations for eigenValueDecomposition.
+	unsigned int m_maxIterations;
 
 	//! Centers the pivot matrix.
 	void centerPivotmatrix(Array<Array<double> >& pivotMatrix);
