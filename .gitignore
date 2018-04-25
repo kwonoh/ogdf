@@ -37,3 +37,4 @@
 /*.vcxproj.filters
 /doc/html
 .vscode
+/build
